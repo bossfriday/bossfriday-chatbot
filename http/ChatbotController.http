@@ -25,7 +25,7 @@ Content-Type: application/json
 
 ### mockCompletions
 POST localhost:9043/chatRobot/mock/completions
-Authorization: Bearer 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
+Authorization: Bearer sk-12345
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ### mockPublish
 POST localhost:9043/chatRobot/mock/publish.json
-Authorization: Bearer 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
+Authorization: Bearer sk-12345
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 
 content=%7B%22content%22%3A%22hello%22%2C%22extra%22%3A%22helloExtra%22%7D&fromUserId=2191&toUserId=2193&toUserId=2192&objectName=RC: TxtMsg&pushContent=thisisapush&pushData=%7B%22pushData%22%3A%22hello%22%7D&count=4&verifyBlacklist=0&isPersisted=1&isIncludeSender=0&disablePush=false&expansion=false
