@@ -1,0 +1,44 @@
+### receiveImMsg
+POST localhost:9043/chatRobot/v1/receiveImMsg
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+fromUserId=123&toUserId=456&objectName=RC%3ATxtMsg&content=%7B"content"%3A"hello2"%7D&channelType=PERSON&msgTimestamp=1408710653491&msgUID=596E-P5PG-4FS2-7OJK&busChannel=busChannel123&groupUserIds=[543,567]
+
+### receiveRoutedMsg
+POST localhost:9043/chatRobot/v1/receiveRoutedMsg
+Content-Type: application/json
+
+{
+  "busChannel": "busChannel123",
+  "channelType": "PERSON",
+  "content": "{\"content\":\"hello\"}",
+  "fromUserId": "123",
+  "groupUserIds": [
+    "[543",
+    "567]"
+  ],
+  "msgTimestamp": 1408710653491,
+  "msgUID": "596E-P5PG-4FS2-7OJK",
+  "objectName": "RC:TxtMsg",
+  "toUserId": "456"
+}
+
+### mockCompletions
+POST localhost:9043/chatRobot/mock/completions
+Authorization: Bearer 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
+Content-Type: application/json
+
+{
+  "model": "text-davinci-003",
+  "prompt": "写一首古诗，要求：有山、有水、有美人",
+  "temperature": 0,
+  "max_tokens": 500,
+  "n": 1
+}
+
+### mockPublish
+POST localhost:9043/chatRobot/mock/publish.json
+Authorization: Bearer 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
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+content=%7B%22content%22%3A%22hello%22%2C%22extra%22%3A%22helloExtra%22%7D&fromUserId=2191&toUserId=2193&toUserId=2192&objectName=RC: TxtMsg&pushContent=thisisapush&pushData=%7B%22pushData%22%3A%22hello%22%7D&count=4&verifyBlacklist=0&isPersisted=1&isIncludeSender=0&disablePush=false&expansion=false

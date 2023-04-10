@@ -1,0 +1,34 @@
+server:
+  port: 9043
+  tomcat:
+    min-spare-threads: 200
+    max-threads: 800
+    accept-count: 5000
+
+spring:
+  application:
+    name: bossfriday-chatbot
+
+bossfriday:
+  chatbot:
+    service:
+      chatGPTDispatcherThreadSize: 128
+      imServerDispatcherThreadSize: 128
+      mailBoxQueueSize: 20480
+      localRouteNoNetwork: false
+      restClientMaxTotal: 100
+      restClientMaxPerRoute: 20
+      contextCacheInitialCapacity: 1024
+      contextCacheMaxCapacity: 5120
+      contextCacheExpireSeconds: 300
+      contextCacheRingCapacity: 10
+    openAi:
+      authorization: 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
+      # askApiUrl: https://api.openai.com/v1/completions
+      askApiUrl: http://localhost:9043/chatRobot/mock/completions
+      maxTokens: 2048
+      temperature: 0.5
+    im:
+      appKey: appKey123
+      appSecret: appSecret123
+      publishMessageApiUrl: http://localhost:9043/chatRobot/mock/publish.json

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: bossfriday-chatbot
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        encode: UTF-8
+        config-retry-time: 3
+        file-extension: yml
