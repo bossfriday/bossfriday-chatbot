@@ -1,5 +1,7 @@
 package cn.bossfriday.chatbot.common;
 
+import cn.bossfriday.chatbot.entity.result.ResultCode;
+
 /**
  * ChatRobotRuntimeException
  *
@@ -15,6 +17,10 @@ public class ChatRobotRuntimeException extends RuntimeException {
 
     public ChatRobotRuntimeException(String msg) {
         super(msg);
+    }
+
+    public ChatRobotRuntimeException(ResultCode resultCode) {
+        this(resultCode.getMessage() + "(" + resultCode.getCode() + ")");
     }
 
     public ChatRobotRuntimeException(String msg, Exception e) {
