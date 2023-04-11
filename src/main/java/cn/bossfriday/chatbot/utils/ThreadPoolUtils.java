@@ -162,10 +162,10 @@ public class ThreadPoolUtils {
      * @param workerQueueSize
      * @return
      */
-    private static BlockingQueue getWorkerBlockingQueue(int workerQueueSize) {
+    private static BlockingQueue<Runnable> getWorkerBlockingQueue(int workerQueueSize) {
         int queueMaxSize = workerQueueSize > 0 ? workerQueueSize : Integer.MAX_VALUE;
 
-        return new LinkedBlockingQueue(queueMaxSize);
+        return new LinkedBlockingQueue<>(queueMaxSize);
     }
 
     /**
