@@ -1,12 +1,12 @@
 package cn.bossfriday.chatbot.utils;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.common.ConcurrentCircularList;
 import lombok.experimental.UtilityClass;
 
 import java.io.*;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.SERVICE_MAX_CONTEXT_CACHE_RING_SIZE;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.SERVICE_MAX_CONTEXT_CACHE_RING_SIZE;
 
 /**
  * CircularListCodecUtils
@@ -26,7 +26,7 @@ public class CircularListCodecUtils {
      */
     public static byte[] encodeStringList(ConcurrentCircularList<String> circularList, int circularListCapacity) throws IOException {
         if (circularList == null || circularList.isEmpty()) {
-            throw new ChatRobotRuntimeException("The input chatContextList is null or empty!");
+            throw new ChatbotException("The input chatContextList is null or empty!");
         }
 
         try (ByteArrayOutputStream out = new ByteArrayOutputStream();

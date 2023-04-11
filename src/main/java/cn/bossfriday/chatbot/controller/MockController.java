@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.*;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.*;
 
 /**
  * MockController

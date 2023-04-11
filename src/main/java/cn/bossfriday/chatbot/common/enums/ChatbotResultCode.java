@@ -4,11 +4,12 @@ package cn.bossfriday.chatbot.common.enums;
 import cn.bossfriday.chatbot.entity.result.ResultCode;
 
 /**
- * ChatRobotResultCode
+ * ChatbotResultCode
  *
  * @author chenx
  */
 public enum ChatbotResultCode implements ResultCode {
+
     // OK
     SUCCESS(0, "ok"),
 

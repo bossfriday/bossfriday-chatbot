@@ -1,11 +1,11 @@
 package cn.bossfriday.chatbot.core;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.core.mailbox.MessageInBox;
 import cn.bossfriday.chatbot.core.mailbox.MessageSendBox;
 import cn.bossfriday.chatbot.core.message.RoutableImMessage;
 import cn.bossfriday.chatbot.core.message.RoutableMessage;
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import cn.bossfriday.chatbot.entity.im.ImMessage;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class MessageRouter {
     private DiscoveryClient serviceDiscoveryClient;
 
     @Getter
-    private ChatRobotConfig config;
+    private ChatbotConfig config;
 
     private MessageSendBox sendBox;
     private MessageInBox inBox;
@@ -61,7 +61,7 @@ public class MessageRouter {
             log.error("MessageRouter.init() error!", ex);
 
             // force service start failed
-            throw new ChatRobotRuntimeException("MessageRouter.init() failed!");
+            throw new ChatbotException("MessageRouter.init() failed!");
         }
     }
 
@@ -120,7 +120,7 @@ public class MessageRouter {
     private List<ServiceInstance> serviceDiscovery() {
         List<ServiceInstance> serviceInstances = this.serviceDiscoveryClient.getInstances(this.config.getServerName());
         if (CollectionUtils.isEmpty(serviceInstances)) {
-            throw new ChatRobotRuntimeException(NO_AVAILABLE_SERVER);
+            throw new ChatbotException(NO_AVAILABLE_SERVER);
         }
 
         return serviceInstances;

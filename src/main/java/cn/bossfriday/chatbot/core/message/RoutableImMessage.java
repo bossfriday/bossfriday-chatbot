@@ -1,8 +1,8 @@
 package cn.bossfriday.chatbot.core.message;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.entity.im.ImMessage;
-import cn.bossfriday.chatbot.utils.MurmurHashUtil;
+import cn.bossfriday.chatbot.utils.MurmurHashUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -20,13 +20,13 @@ public class RoutableImMessage extends RoutableMessage<ImMessage> {
     public Long calculateHashCode() {
 
         if (StringUtils.isEmpty(this.getPayload().getBusChannel())) {
-            throw new ChatRobotRuntimeException("ImMessage.busChannel is empty!");
+            throw new ChatbotException("ImMessage.busChannel is empty!");
         }
 
         if (StringUtils.isEmpty(this.getPayload().getFromUserId())) {
-            throw new ChatRobotRuntimeException("ImMessage.fromUserId is empty!");
+            throw new ChatbotException("ImMessage.fromUserId is empty!");
         }
 
-        return MurmurHashUtil.hash64(this.getPayload().getBusChannel() + "$$" + this.getPayload().getFromUserId());
+        return MurmurHashUtils.hash64(this.getPayload().getBusChannel() + "$$" + this.getPayload().getFromUserId());
     }
 }

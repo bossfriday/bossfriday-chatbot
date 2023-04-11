@@ -1,6 +1,6 @@
 package cn.bossfriday.chatbot.core.message;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cloud.client.ServiceInstance;
@@ -25,7 +25,7 @@ public abstract class RoutableMessage<T> {
 
     protected RoutableMessage(T payload) {
         if (Objects.isNull(payload)) {
-            throw new ChatRobotRuntimeException("The input payload is null!");
+            throw new ChatbotException("The input payload is null!");
         }
 
         this.payload = payload;
@@ -45,7 +45,7 @@ public abstract class RoutableMessage<T> {
 
             return this.hashCode;
         } catch (Exception ex) {
-            throw new ChatRobotRuntimeException("RoutableMessage.getHashCode() error! msg: " + ex.getMessage());
+            throw new ChatbotException("RoutableMessage.getHashCode() error! msg: " + ex.getMessage());
         }
     }
 

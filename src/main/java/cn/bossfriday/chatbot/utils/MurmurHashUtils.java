@@ -1,6 +1,6 @@
 package cn.bossfriday.chatbot.utils;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.ByteBuffer;
@@ -8,16 +8,16 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
 /**
- * MurmurHashUtil
+ * MurmurHashUtils
  *
  * @author chenx
  */
-public class MurmurHashUtil {
+public class MurmurHashUtils {
 
     private static final int INT_BYTE_LENGTH = 4;
     private static final int LONG_BYTE_LENGTH = 8;
 
-    private MurmurHashUtil() {
+    private MurmurHashUtils() {
 
     }
 
@@ -29,7 +29,7 @@ public class MurmurHashUtil {
      */
     public static long hash64(String key) {
         if (StringUtils.isEmpty(key)) {
-            throw new ChatRobotRuntimeException("input key is null or empty!");
+            throw new ChatbotException("input key is null or empty!");
         }
 
         return hash64(key.getBytes(StandardCharsets.UTF_8));
@@ -53,7 +53,7 @@ public class MurmurHashUtil {
      */
     public static int hash32(String key) {
         if (StringUtils.isEmpty(key)) {
-            throw new ChatRobotRuntimeException("input key is null or empty!");
+            throw new ChatbotException("input key is null or empty!");
         }
 
         return hash(key.getBytes(StandardCharsets.UTF_8), 0x1234ABCD);

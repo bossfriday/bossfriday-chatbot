@@ -1,11 +1,11 @@
 package cn.bossfriday.chatbot.core;
 
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * ChatRobotConfigInitializer
+ * ConfigInitializer
  *
  * @author chenx
  */
@@ -74,8 +74,8 @@ public class ConfigInitializer {
      *
      * @return
      */
-    public ChatRobotConfig getChatRobotConfig() {
-        return ChatRobotConfig.builder()
+    public ChatbotConfig getChatRobotConfig() {
+        return ChatbotConfig.builder()
                 .serverPort(this.serverPort)
                 .serverName(this.serverName)
                 .mailBoxQueueSize(this.mailBoxQueueSize)

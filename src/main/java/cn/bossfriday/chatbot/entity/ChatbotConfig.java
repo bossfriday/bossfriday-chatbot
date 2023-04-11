@@ -3,7 +3,7 @@ package cn.bossfriday.chatbot.entity;
 import lombok.*;
 
 /**
- * ChatRobotServiceConfig
+ * ChatbotConfig
  *
  * @author chenx
  */
@@ -12,7 +12,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatRobotConfig {
+public class ChatbotConfig {
 
     private int serverPort;
 

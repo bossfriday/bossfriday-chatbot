@@ -1,10 +1,10 @@
 package cn.bossfriday.chatbot.core.client;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.common.ChatbotException;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import cn.bossfriday.chatbot.entity.im.ImPublishMessage;
 import cn.bossfriday.chatbot.entity.im.ImServerApiResult;
-import cn.bossfriday.chatbot.utils.ChatRobotUtils;
+import cn.bossfriday.chatbot.utils.ChatbotUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.IM_SERVER_API_RESULT_CODE_OK;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.IM_SERVER_API_RESULT_CODE_OK;
 
 /**
  * ImServerApiClient
@@ -27,9 +27,9 @@ import static cn.bossfriday.chatbot.common.ChatRobotConstant.IM_SERVER_API_RESUL
 @Slf4j
 public class ImServerApiClient extends PoolingRestClient<Object> {
 
-    private ChatRobotConfig config;
+    private ChatbotConfig config;
 
-    public ImServerApiClient(String clientName, ChatRobotConfig config) {
+    public ImServerApiClient(String clientName, ChatbotConfig config) {
         super(clientName, config.getRestClientMaxTotal(), config.getRestClientMaxPerRoute());
 
         this.config = config;
@@ -54,7 +54,7 @@ public class ImServerApiClient extends PoolingRestClient<Object> {
     private void publishMessage(ImPublishMessage message) throws NoSuchAlgorithmException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        ChatRobotUtils.setImServerApiAuthHeaders(headers, this.config.getImAppKey(), this.config.getImAppSecret());
+        ChatbotUtils.setImServerApiAuthHeaders(headers, this.config.getImAppKey(), this.config.getImAppSecret());
         HttpEntity<String> requestEntity = new HttpEntity<>(getBody(message), headers);
         ResponseEntity<ImServerApiResult> responseEntity = this.restTemplate.exchange(
                 this.config.getImPublishMessageApiUrl(),
@@ -87,11 +87,11 @@ public class ImServerApiClient extends PoolingRestClient<Object> {
      */
     private static String getBody(ImPublishMessage message) {
         if (Objects.isNull(message)) {
-            throw new ChatRobotRuntimeException("message is null!");
+            throw new ChatbotException("message is null!");
         }
 
         if (ArrayUtils.isEmpty(message.getToUserId())) {
-            throw new ChatRobotRuntimeException("toUserId is empty!");
+            throw new ChatbotException("toUserId is empty!");
         }
 
         List<BasicNameValuePair> parameters = new ArrayList<>();

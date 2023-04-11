@@ -3,12 +3,12 @@ package cn.bossfriday.chatbot.core.client;
 import cn.bossfriday.chatbot.core.ChatContextCorrelator;
 import cn.bossfriday.chatbot.core.MessageDispatcher;
 import cn.bossfriday.chatbot.core.message.RoutableImMessage;
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import cn.bossfriday.chatbot.entity.im.ImMessage;
 import cn.bossfriday.chatbot.entity.im.ImPublishMessage;
 import cn.bossfriday.chatbot.entity.im.rcmsg.RcTxtMsg;
 import cn.bossfriday.chatbot.entity.response.OpenAiCompletionResponse;
-import cn.bossfriday.chatbot.utils.ChatRobotUtils;
+import cn.bossfriday.chatbot.utils.ChatbotUtils;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -16,7 +16,7 @@ import org.springframework.http.*;
 
 import java.util.Objects;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.IM_MESSAGE_TYPE_TXT;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.IM_MESSAGE_TYPE_TXT;
 import static cn.bossfriday.chatbot.common.enums.ChatbotResultCode.*;
 
 /**
@@ -27,12 +27,12 @@ import static cn.bossfriday.chatbot.common.enums.ChatbotResultCode.*;
 @Slf4j
 public class ChatGptClient extends PoolingRestClient<RoutableImMessage> {
 
-    private ChatRobotConfig config;
+    private ChatbotConfig config;
     private ChatContextCorrelator correlator;
     private ImServerApiClient imServerApiClient;
     private MessageDispatcher messageDispatcher;
 
-    public ChatGptClient(String clientName, ChatRobotConfig config, MessageDispatcher messageDispatcher) {
+    public ChatGptClient(String clientName, ChatbotConfig config, MessageDispatcher messageDispatcher) {
         super(clientName, config.getRestClientMaxTotal(), config.getRestClientMaxPerRoute());
 
         this.config = config;
@@ -48,7 +48,7 @@ public class ChatGptClient extends PoolingRestClient<RoutableImMessage> {
             ImMessage imMessage = routableImMessage.getPayload();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization", ChatRobotUtils.getOpenAiApiAuth(this.config.getOpenAiApiAuth()));
+            headers.set("Authorization", ChatbotUtils.getOpenAiApiAuth(this.config.getOpenAiApiAuth()));
             String requestBody = JSON.toJSONString(this.correlator.getOpenAiCompletionRequest(imMessage));
             HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
             ResponseEntity<OpenAiCompletionResponse> responseEntity = this.restTemplate.exchange(

@@ -3,7 +3,7 @@ package cn.bossfriday.chatbot.servcie;
 import cn.bossfriday.chatbot.common.enums.ImMessageType;
 import cn.bossfriday.chatbot.core.MessageRouter;
 import cn.bossfriday.chatbot.entity.im.ImMessage;
-import cn.bossfriday.chatbot.utils.ChatRobotUtils;
+import cn.bossfriday.chatbot.utils.ChatbotUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 /**
- * ChatRobotService
+ * ChatbotService
  *
  * @author chenx
  */
 @Slf4j
 @Service
-public class ChatRobotService {
+public class ChatbotService {
 
     @Autowired
     private MessageRouter router;
@@ -34,7 +34,7 @@ public class ChatRobotService {
                 return;
             }
 
-            log.info("ChatRobotService.onImMessageReceived(): " + ChatRobotUtils.getImMessageRouterAccessLogInfo(message));
+            log.info("ChatRobotService.onImMessageReceived(): " + ChatbotUtils.getImMessageRouterAccessLogInfo(message));
             ImMessageType messageType = ImMessageType.parse(message.getObjectName());
             if (messageType.isIgnore()) {
                 log.warn("ChatRobotService.onImMessageReceived() ignore a routableMessage: " + message);

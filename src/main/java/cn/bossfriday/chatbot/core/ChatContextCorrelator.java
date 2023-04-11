@@ -1,11 +1,11 @@
 package cn.bossfriday.chatbot.core;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.common.ConcurrentCircularList;
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import cn.bossfriday.chatbot.entity.im.ImMessage;
 import cn.bossfriday.chatbot.entity.request.OpenAiCompletionRequest;
-import cn.bossfriday.chatbot.utils.ChatRobotUtils;
+import cn.bossfriday.chatbot.utils.ChatbotUtils;
 import cn.bossfriday.chatbot.utils.CircularListCodecUtils;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.SERVICE_AI_MODEL_TXT;
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.SERVICE_CHOICE_COUNT;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.SERVICE_AI_MODEL_TXT;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.SERVICE_CHOICE_COUNT;
 
 /**
  * ChatContextCorrelator
@@ -29,9 +29,9 @@ import static cn.bossfriday.chatbot.common.ChatRobotConstant.SERVICE_CHOICE_COUN
 public class ChatContextCorrelator {
 
     private Cache<String, byte[]> contextCache = null;
-    private ChatRobotConfig config;
+    private ChatbotConfig config;
 
-    public ChatContextCorrelator(ChatRobotConfig config) {
+    public ChatContextCorrelator(ChatbotConfig config) {
         this.config = config;
         this.contextCache = Caffeine.newBuilder()
                 .initialCapacity(config.getContextCacheInitialCapacity())
@@ -48,7 +48,7 @@ public class ChatContextCorrelator {
      */
     public OpenAiCompletionRequest getOpenAiCompletionRequest(ImMessage message) throws IOException {
         String key = this.getKey(message);
-        String value = ChatRobotUtils.getImMessageContent(message);
+        String value = ChatbotUtils.getImMessageContent(message);
         ConcurrentCircularList<String> chatContextList = this.setContext(key, value);
 
         return this.buildOpenAiCompletionRequest(chatContextList);
@@ -60,11 +60,11 @@ public class ChatContextCorrelator {
      */
     public String getKey(ImMessage message) {
         if (Objects.isNull(message)) {
-            throw new ChatRobotRuntimeException("The input ImMessage is null!");
+            throw new ChatbotException("The input ImMessage is null!");
         }
 
         if (StringUtils.isEmpty(message.getBusChannel()) || StringUtils.isEmpty(message.getFromUserId())) {
-            throw new ChatRobotRuntimeException("ImMessage.busChannel or fromUserId is empty!");
+            throw new ChatbotException("ImMessage.busChannel or fromUserId is empty!");
         }
 
         return message.getBusChannel() + "-" + message.getFromUserId();
@@ -96,7 +96,7 @@ public class ChatContextCorrelator {
      */
     private OpenAiCompletionRequest buildOpenAiCompletionRequest(ConcurrentCircularList<String> chatContextList) {
         if (chatContextList == null || chatContextList.isEmpty()) {
-            throw new ChatRobotRuntimeException("chatContextList is null or empty!");
+            throw new ChatbotException("chatContextList is null or empty!");
         }
 
         StringBuilder sb = new StringBuilder();

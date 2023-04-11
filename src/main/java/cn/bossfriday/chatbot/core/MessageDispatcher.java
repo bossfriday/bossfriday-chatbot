@@ -1,6 +1,6 @@
 package cn.bossfriday.chatbot.core;
 
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import cn.bossfriday.chatbot.utils.ThreadPoolUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +20,7 @@ public class MessageDispatcher {
     private ExecutorService[] chatGptInvokerThreads = null;
     private ExecutorService[] imServerDispatcherThreads = null;
 
-    public MessageDispatcher(ChatRobotConfig config) {
+    public MessageDispatcher(ChatbotConfig config) {
         this.chatGptDispatcherThreadSize = config.getChatGptDispatcherThreadSize();
         this.imServerDispatcherThreadSize = config.getImServerDispatcherThreadSize();
 

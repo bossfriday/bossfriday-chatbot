@@ -1,11 +1,11 @@
 package cn.bossfriday.chatbot.core.mailbox;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.core.MessageDispatcher;
 import cn.bossfriday.chatbot.core.client.ChatGptClient;
 import cn.bossfriday.chatbot.core.message.RoutableImMessage;
 import cn.bossfriday.chatbot.core.message.RoutableMessage;
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,7 +19,7 @@ public class MessageInBox extends MailBox {
     private MessageDispatcher messageDispatcher;
     private ChatGptClient chatGptClient;
 
-    public MessageInBox(ChatRobotConfig config, MessageDispatcher messageDispatcher) {
+    public MessageInBox(ChatbotConfig config, MessageDispatcher messageDispatcher) {
         super(config.getMailBoxQueueSize());
 
         this.chatGptClient = new ChatGptClient("ChatGptPoolingClient", config, messageDispatcher);
@@ -32,7 +32,7 @@ public class MessageInBox extends MailBox {
             if (msg instanceof RoutableImMessage) {
                 this.chatGptClient.send((RoutableImMessage) msg);
             } else {
-                throw new ChatRobotRuntimeException("MessageInBox received an unsupported message!");
+                throw new ChatbotException("MessageInBox received an unsupported message!");
             }
         });
     }

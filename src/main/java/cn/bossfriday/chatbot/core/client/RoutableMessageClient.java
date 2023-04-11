@@ -1,6 +1,6 @@
 package cn.bossfriday.chatbot.core.client;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.core.message.RoutableMessage;
 import cn.bossfriday.chatbot.entity.result.Result;
 import com.alibaba.fastjson.JSON;
@@ -10,7 +10,7 @@ import org.springframework.http.*;
 
 import java.util.Objects;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.URL_RECEIVE_ROUTED_MSG;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.URL_RECEIVE_ROUTED_MSG;
 
 /**
  * RoutableMessageClient
@@ -41,12 +41,12 @@ public class RoutableMessageClient extends PoolingRestClient<RoutableMessage<?>>
             );
 
             if (responseEntity.getStatusCode().isError()) {
-                throw new ChatRobotRuntimeException("RoutableMessageTransport.send() failed, " + responseEntity.getStatusCode());
+                throw new ChatbotException("RoutableMessageTransport.send() failed, " + responseEntity.getStatusCode());
             }
 
             Result<Void> result = responseEntity.getBody();
             if (Objects.isNull(result)) {
-                throw new ChatRobotRuntimeException("RoutableMessageTransport.send() failed, responseEntity.getBody() is null!");
+                throw new ChatbotException("RoutableMessageTransport.send() failed, responseEntity.getBody() is null!");
             }
 
             if (!result.isSuccess()) {

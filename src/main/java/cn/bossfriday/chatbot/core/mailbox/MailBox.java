@@ -1,6 +1,6 @@
 package cn.bossfriday.chatbot.core.mailbox;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.core.message.RoutableMessage;
 import cn.bossfriday.chatbot.utils.ThreadPoolUtils;
 import com.lmax.disruptor.*;
@@ -37,7 +37,7 @@ public abstract class MailBox {
     public void start() {
         this.ringBuffer = this.queue.start();
         if (this.ringBuffer == null) {
-            throw new ChatRobotRuntimeException("MailBox.start() error!");
+            throw new ChatbotException("MailBox.start() error!");
         }
     }
 

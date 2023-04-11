@@ -3,8 +3,8 @@ package cn.bossfriday.chatbot.common.enums;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.IM_MESSAGE_TYPE_IMG_TXT;
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.IM_MESSAGE_TYPE_TXT;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.IM_MESSAGE_TYPE_IMG_TXT;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.IM_MESSAGE_TYPE_TXT;
 
 /**
  * ImMessageType

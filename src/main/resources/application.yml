@@ -23,7 +23,7 @@ bossfriday:
       contextCacheExpireSeconds: 300
       contextCacheRingCapacity: 10
     openAi:
-      authorization: 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
+      authorization: sk-1234567
       # askApiUrl: https://api.openai.com/v1/completions
       askApiUrl: http://localhost:9043/chatRobot/mock/completions
       maxTokens: 2048

@@ -3,12 +3,12 @@ package cn.bossfriday.chatbot.common;
 import lombok.experimental.UtilityClass;
 
 /**
- * ChatRobotConstant
+ * ChatbotConstant
  *
  * @author chenx
  */
 @UtilityClass
-public class ChatRobotConstant {
+public class ChatbotConstant {
 
     /**
      * Service

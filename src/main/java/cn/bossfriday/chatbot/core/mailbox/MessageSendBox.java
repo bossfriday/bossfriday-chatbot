@@ -1,10 +1,10 @@
 package cn.bossfriday.chatbot.core.mailbox;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.core.MessageDispatcher;
 import cn.bossfriday.chatbot.core.client.RoutableMessageClient;
 import cn.bossfriday.chatbot.core.message.RoutableMessage;
-import cn.bossfriday.chatbot.entity.ChatRobotConfig;
+import cn.bossfriday.chatbot.entity.ChatbotConfig;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
@@ -19,13 +19,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class MessageSendBox extends MailBox {
 
-    private ChatRobotConfig config;
+    private ChatbotConfig config;
     private MessageInBox inBox;
     private InetSocketAddress selfAddress;
     private ConcurrentHashMap<InetSocketAddress, RoutableMessageClient> clientMap = new ConcurrentHashMap<>();
     private MessageDispatcher messageDispatcher;
 
-    public MessageSendBox(ChatRobotConfig config, MessageInBox inBox, InetSocketAddress selfAddress, MessageDispatcher messageDispatcher) {
+    public MessageSendBox(ChatbotConfig config, MessageInBox inBox, InetSocketAddress selfAddress, MessageDispatcher messageDispatcher) {
         super(config.getMailBoxQueueSize());
 
         this.config = config;
@@ -37,11 +37,11 @@ public class MessageSendBox extends MailBox {
     @Override
     public void onMessageReceived(RoutableMessage msg) {
         if (Objects.isNull(msg)) {
-            throw new ChatRobotRuntimeException("The input routableMessage is null!");
+            throw new ChatbotException("The input routableMessage is null!");
         }
 
         if (Objects.isNull(msg.getTargetServiceInstance())) {
-            throw new ChatRobotRuntimeException("The input routableMessage.targetServiceInstance is null!");
+            throw new ChatbotException("The input routableMessage.targetServiceInstance is null!");
         }
 
         // local process need not network IO, enqueue directly. the localRouteNoNetwork config only just for testing.

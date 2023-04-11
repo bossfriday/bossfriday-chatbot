@@ -3,27 +3,27 @@ package cn.bossfriday.chatbot.common;
 import cn.bossfriday.chatbot.entity.result.ResultCode;
 
 /**
- * ChatRobotRuntimeException
+ * ChatbotException
  *
  * @author chenx
  */
-public class ChatRobotRuntimeException extends RuntimeException {
+public class ChatbotException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public ChatRobotRuntimeException(Exception e) {
+    public ChatbotException(Exception e) {
         super(e);
     }
 
-    public ChatRobotRuntimeException(String msg) {
+    public ChatbotException(String msg) {
         super(msg);
     }
 
-    public ChatRobotRuntimeException(ResultCode resultCode) {
+    public ChatbotException(ResultCode resultCode) {
         this(resultCode.getMessage() + "(" + resultCode.getCode() + ")");
     }
 
-    public ChatRobotRuntimeException(String msg, Exception e) {
+    public ChatbotException(String msg, Exception e) {
         super(msg, e);
     }
 

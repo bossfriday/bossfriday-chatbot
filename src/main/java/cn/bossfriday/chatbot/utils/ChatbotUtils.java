@@ -1,6 +1,6 @@
 package cn.bossfriday.chatbot.utils;
 
-import cn.bossfriday.chatbot.common.ChatRobotRuntimeException;
+import cn.bossfriday.chatbot.common.ChatbotException;
 import cn.bossfriday.chatbot.common.enums.ImMessageType;
 import cn.bossfriday.chatbot.entity.im.ImMessage;
 import cn.bossfriday.chatbot.entity.im.rcmsg.RcImgTextMsg;
@@ -16,15 +16,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
-import static cn.bossfriday.chatbot.common.ChatRobotConstant.*;
+import static cn.bossfriday.chatbot.common.ChatbotConstant.*;
 
 /**
- * ChatRobotUtils
+ * ChatbotUtils
  *
  * @author chenx
  */
 @UtilityClass
-public class ChatRobotUtils {
+public class ChatbotUtils {
 
     /**
      * getImMessageRouterAccessLogInfo
@@ -50,7 +50,7 @@ public class ChatRobotUtils {
      */
     public static String getOpenAiApiAuth(String apiAuth) {
         if (StringUtils.isEmpty(apiAuth)) {
-            throw new ChatRobotRuntimeException("apiAuth is null or empty!");
+            throw new ChatbotException("apiAuth is null or empty!");
         }
 
         return "Bearer " + apiAuth;
@@ -64,7 +64,7 @@ public class ChatRobotUtils {
      */
     public static String getImMessageContent(ImMessage message) {
         if (Objects.isNull(message)) {
-            throw new ChatRobotRuntimeException("The input ImRoutingMessage is null!");
+            throw new ChatbotException("The input ImRoutingMessage is null!");
         }
 
         ImMessageType msgType = ImMessageType.parse(message.getObjectName());
@@ -73,7 +73,7 @@ public class ChatRobotUtils {
         } else if (msgType.getCode() == ImMessageType.RC_MSG_IMG_TXT.getCode()) {
             return JSON.parseObject(message.getContent(), RcImgTextMsg.class).getContent();
         } else {
-            throw new ChatRobotRuntimeException("unsupported ImMessageType!");
+            throw new ChatbotException("unsupported ImMessageType!");
         }
     }
 
@@ -87,15 +87,15 @@ public class ChatRobotUtils {
      */
     public static void setImServerApiAuthHeaders(HttpHeaders headers, String appKey, String appSecret) throws NoSuchAlgorithmException {
         if (Objects.isNull(headers)) {
-            throw new ChatRobotRuntimeException("headers is null!");
+            throw new ChatbotException("headers is null!");
         }
 
         if (StringUtils.isEmpty(appKey)) {
-            throw new ChatRobotRuntimeException("appKey is null!");
+            throw new ChatbotException("appKey is null!");
         }
 
         if (StringUtils.isEmpty(appSecret)) {
-            throw new ChatRobotRuntimeException("appSecret is null!");
+            throw new ChatbotException("appSecret is null!");
         }
 
         String nonce = String.valueOf(Math.random() * 1000000);
