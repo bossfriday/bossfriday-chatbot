@@ -23,7 +23,8 @@
 2、为将来可能需要的流控/重试/熔断提供一个统一的处理层。
 
 ## 2.2 同节点RPC不走网络
-之前用java实现了一个Akka（详见：https://github.com/bossfriday/bossfriday-nubybear/tree/master/cn.bossfriday.common），在实现的过程中同时实现了一个AbstractServiceBootstrap，这个Bootstrap可以理解为一个容器，启动时将所有PluginElements中的BaseUntypedActor加载到容器中，同时完成服务注册。大家可以把每一个PluginElement认为是一个微服务（每个微服务可以含有N个Actor，一个系统由N个微服务构成），把这个容器类比为tomcat，由于所有的Actor均运行于该容器内，因此可以做到同节点的ActorRPC不走网络。由于设计思路已经往这个方面走了，于是这里也索性实现同节点RPC不走网络，虽然这里有点low，只是一个http方式的RPC（没有使用openFegin，自定义了路由方式，利用RestTemplate实现）。这样的好处显而易见：减少网络IO。需要说明的是，为了自测方便，我增加了一个配置：application.yml.bossfriday.chatbot.service.localRouteNoNetwork去最终决定是否开启。
+之前用java实现了一个Akka（详见：https://github.com/bossfriday/bossfriday-nubybear/tree/master/cn.bossfriday.common），
+在实现的过程中同时实现了一个AbstractServiceBootstrap，这个Bootstrap可以理解为一个容器，启动时将所有PluginElements中的BaseUntypedActor加载到容器中，同时完成服务注册。大家可以把每一个PluginElement认为是一个微服务（每个微服务可以含有N个Actor，一个系统由N个微服务构成），把这个容器类比为tomcat，由于所有的Actor均运行于该容器内，因此可以做到同节点的ActorRPC不走网络。由于设计思路已经往这个方面走了，于是这里也索性实现同节点RPC不走网络，虽然这里有点low，只是一个http方式的RPC（没有使用openFegin，自定义了路由方式，利用RestTemplate实现）。这样的好处显而易见：减少网络IO。需要说明的是，为了自测方便，我增加了一个配置：application.yml.bossfriday.chatbot.service.localRouteNoNetwork去最终决定是否开启。
 
 ## 2.3 使用Disruptor构建有界邮箱队列
 在最开始的实现中，我还是按照常规套路：LinkedBlockingQueue + while true自旋的方式去不断take，实现如下：
@@ -1044,7 +1045,8 @@ public class MessageDispatcher {
 
 ```
 # 3. 总结
-现在基于GPT各种小程序，小应用太多了，也算是热点了，因此写了此文给大家抄作业吧。GPT自身API封装的非常简单，单说功能实现，我相信多数人都没有什么障碍，但是我还是建议大家写东西无论大小，要先思而后动，一定要把场景，可能发生的问题通通考虑清楚，并且注重编程思想，不要功能测试阶段啥问题没有，一到商用，各种问题这个那个的接踵而来。最后附上源码地址：https://github.com/bossfriday/bossfriday-chatbot，其实代码并不多，我大概用了6/7个工作日完成吧，主要是边写边重构边自测啥的，然后还的搭着干一些杂事。大家下载源码后，本地需要启动一个nacos，启动后通过ChatRobotController.http中receiveImMsg就可以自测了。目前上游服务（ImServer）和GPT-API都是有挡板的（地址可配，当前直接配置而本地mock地址）。
+现在基于GPT各种小程序，小应用太多了，也算是热点了，因此写了此文给大家抄作业吧。GPT自身API封装的非常简单，单说功能实现，我相信多数人都没有什么障碍，但是我还是建议大家写东西无论大小，要先思而后动，一定要把场景，可能发生的问题通通考虑清楚，并且注重编程思想，不要功能测试阶段啥问题没有，一到商用，各种问题这个那个的接踵而来。最后附上源码地址：https://github.com/bossfriday/bossfriday-chatbot，
+其实代码并不多，我大概用了6/7个工作日完成吧，主要是边写边重构边自测啥的，然后还的搭着干一些杂事。大家下载源码后，本地需要启动一个nacos，启动后通过ChatRobotController.http中receiveImMsg就可以自测了。目前上游服务（ImServer）和GPT-API都是有挡板的（地址可配，当前直接配置而本地mock地址）。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/359a44ccf3834b7aad1868cb480fd648.png)
 
 
