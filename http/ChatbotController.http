@@ -1,8 +1,14 @@
-### receiveImMsg
+### chat1-写首古诗
 POST localhost:9043/chatRobot/v1/receiveImMsg
 Content-Type: application/x-www-form-urlencoded;charset=UTF-8
 
-fromUserId=123&toUserId=456&objectName=RC%3ATxtMsg&content=%7B"content"%3A"hello2"%7D&channelType=PERSON&msgTimestamp=1408710653491&msgUID=596E-P5PG-4FS2-7OJK&busChannel=busChannel123&groupUserIds=[543,567]
+fromUserId=123&toUserId=456&objectName=RC%3ATxtMsg&content={"content":"写一首古诗，要求：有山、有水。"}&channelType=PERSON&msgTimestamp=1408710653491&msgUID=596E-P5PG-4FS2-7OJK&busChannel=busChannel123&groupUserIds=[543,567]
+
+### chat2-取名
+POST localhost:9043/chatRobot/v1/receiveImMsg
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+fromUserId=123&toUserId=456&objectName=RC%3ATxtMsg&content={"content":"请给这首诗取一个名字。"}&channelType=PERSON&msgTimestamp=1408710653491&msgUID=596E-P5PG-4FS2-7OJK&busChannel=busChannel123&groupUserIds=[543,567]
 
 ### receiveRoutedMsg
 POST localhost:9043/chatRobot/v1/receiveRoutedMsg
